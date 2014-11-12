@@ -37,7 +37,7 @@
  */
 tagsInput.directive('tagsInput', function($timeout, $document, tagsInputConfig) {
     function TagList(options, events) {
-        var self = {}, getTagText, setTagText, tagIsValid;
+        var self = {}, getTagText, setTagText, tagIsValid, hasTagClass, getTagClass;
 
         getTagText = function(tag) {
             return safeToString(tag[options.displayProperty]);
@@ -55,6 +55,14 @@ tagsInput.directive('tagsInput', function($timeout, $document, tagsInputConfig) 
                    tagText.length <= options.maxLength &&
                    options.allowedTagsPattern.test(tagText) &&
                    !findInObjectArray(self.items, tag, options.displayProperty);
+        };
+
+        hasTagClass = function(tag) {
+            return tag[options.cssProperty] !== null && tag[options.cssProperty] !== undefined;
+        };
+
+        getTagClass = function(tag) {
+            return safeToString(tag[options.cssProperty]);
         };
 
         self.items = [];
@@ -144,7 +152,8 @@ tagsInput.directive('tagsInput', function($timeout, $document, tagsInputConfig) 
                 maxTags: [Number, MAX_SAFE_INTEGER],
                 displayProperty: [String, 'text'],
                 allowLeftoverText: [Boolean, false],
-                addFromAutocompleteOnly: [Boolean, false]
+                addFromAutocompleteOnly: [Boolean, false],
+                cssProperty: [String, null]
             });
 
             $scope.tagList = new TagList($scope.options, $scope.events);
