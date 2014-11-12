@@ -34,6 +34,8 @@
  *                                                   allowLeftoverText values are ignored.
  * @param {expression} onTagAdded Expression to evaluate upon adding a new tag. The new tag is available as $tag.
  * @param {expression} onTagRemoved Expression to evaluate upon removing an existing tag. The removed tag is available as $tag.
+ * @param {string=} [cssProperty=null] Property to be rendered as the class for this particular tag
+ * @param {boolean=} [displayInput=true] Flag indicating that there will be an input box for new tags
  */
 tagsInput.directive('tagsInput', function($timeout, $document, tagsInputConfig) {
     function TagList(options, events) {
@@ -153,7 +155,8 @@ tagsInput.directive('tagsInput', function($timeout, $document, tagsInputConfig) 
                 displayProperty: [String, 'text'],
                 allowLeftoverText: [Boolean, false],
                 addFromAutocompleteOnly: [Boolean, false],
-                cssProperty: [String, null]
+                cssProperty: [String, null],
+                showInput: [Boolean, true]
             });
 
             $scope.tagList = new TagList($scope.options, $scope.events);
