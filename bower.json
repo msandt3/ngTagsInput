@@ -1,0 +1,28 @@
+{
+	"name": "ng-tags-input",
+	"version": "1.0.0",
+	"main": [
+		"build/ng-tags-input.js",
+		"build/ng-tags-input.css"
+	],
+	"ignore": [
+		"coverage/*",
+		"grunt/*",
+		"node_modules/*",
+		"scss/*",
+		"src/*",
+		"templates/*",
+		"test/*",
+		".gitignore",
+		".jshintrc",
+		".travis.yml",
+		"CONTRIBUTING.md",
+		"Gruntfile.js",
+		"karma.conf.js",
+		"npm-shrinkwrap.json",
+		"package.json",
+		"sauce.launchers.json"
+	],
+	"private": "true"
+
+}
