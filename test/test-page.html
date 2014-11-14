@@ -41,12 +41,15 @@
     .foo .autocomplete .suggestion-item.selected {
       background-color: green;
     }
+
+    .tag-item.one {
+      background-color: purple !important;
+    }
   </style>
 </head>
 <body ng-controller="Ctrl">
     <p></p>
-    <tags-input ng-model="tags">
-        <auto-complete source="loadItems($query)" load-on-down-arrow="true"></auto-complete>
+    <tags-input ng-model="tags" css-property="class" popover="true" popover-clicked="plusClicked($tag)" on-tag-added="plusClicked($tag)">
     </tags-input>
     <p></p>
     <div class="input-group" style="width: 600px">
@@ -96,8 +99,8 @@
     angular.module('app', ['ngTagsInput'])
         .controller('Ctrl', function($scope, $q) {
             var superheroes = [
-              { text: 'Batman <bruce@wayne.com>' },
-              { text: 'Superman' },
+              { text: 'Batman <bruce@wayne.com>'},
+              { text: 'Superman'},
               { text: 'Flash' },
               { text: 'Iron Man' },
               { text: 'Hulk' },
@@ -107,7 +110,7 @@
               { text: 'Spiderman'}
             ];
 
-            $scope.tags = [{ text: 'Batman' }, { text: 'Superman' }, { text:'Flash' }];
+            $scope.tags = [{ text: 'Batman'}, { text: 'Superman', class: 'one'}, { text:'Flash', class: 'two'}];
             $scope.placeholder = 'New tag';
             $scope.loadItems = function(query) {
               var deferred = $q.defer();
@@ -119,6 +122,11 @@
               }
               deferred.resolve(items);
               return deferred.promise;
+            };
+
+            $scope.plusClicked = function($tag) {
+              console.log($tag);
+              alert('Plus Clicked');
             };
         })
         .directive('limitTags', function() {

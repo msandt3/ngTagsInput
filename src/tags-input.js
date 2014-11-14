@@ -37,7 +37,7 @@
  * @param {string=} [cssProperty=null] Property to be rendered as the class for this particular tag
  * @param {boolean=} [displayInput=true] Flag indicating that there will be an input box for new tags
  */
-tagsInput.directive('tagsInput', function($timeout, $document, tagsInputConfig) {
+tagsInput.directive('tagsInput', function($timeout, $document, tagsInputConfig, $log) {
     function TagList(options, events) {
         var self = {}, getTagText, setTagText, tagIsValid, hasTagClass, getTagClass;
 
@@ -115,6 +115,10 @@ tagsInput.directive('tagsInput', function($timeout, $document, tagsInputConfig) 
             return tag;
         };
 
+        self.popoverClicked = function(tag) {
+            events.trigger('popover-clicked', { $tag: tag });
+        };
+
         return self;
     }
 
@@ -128,7 +132,8 @@ tagsInput.directive('tagsInput', function($timeout, $document, tagsInputConfig) 
         scope: {
             tags: '=ngModel',
             onTagAdded: '&',
-            onTagRemoved: '&'
+            onTagRemoved: '&',
+            popoverClicked: '&'
         },
         replace: false,
         transclude: true,
@@ -156,7 +161,9 @@ tagsInput.directive('tagsInput', function($timeout, $document, tagsInputConfig) 
                 allowLeftoverText: [Boolean, false],
                 addFromAutocompleteOnly: [Boolean, false],
                 cssProperty: [String, null],
-                showInput: [Boolean, true]
+                showInput: [Boolean, true],
+                popoverDisplay: [Boolean, false],
+                popoverSymbol: [String, String.fromCharCode(43)]
             });
 
             $scope.tagList = new TagList($scope.options, $scope.events);
@@ -206,6 +213,7 @@ tagsInput.directive('tagsInput', function($timeout, $document, tagsInputConfig) 
             };
 
             events
+                .on('popover-clicked', scope.popoverClicked)
                 .on('tag-added', scope.onTagAdded)
                 .on('tag-removed', scope.onTagRemoved)
                 .on('tag-added', function() {
