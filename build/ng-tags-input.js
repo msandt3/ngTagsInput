@@ -5,7 +5,7 @@
  * Copyright (c) 2013-2014 Michael Benford
  * License: MIT
  *
- * Generated at 2014-11-14 14:18:38 -0500
+ * Generated at 2014-11-19 14:50:33 -0500
  */
 (function() {
 'use strict';
@@ -126,10 +126,13 @@ var tagsInput = angular.module('ngTagsInput', []);
  * @param {expression} onTagRemoved Expression to evaluate upon removing an existing tag. The removed tag is available as $tag.
  * @param {string=} [cssProperty=null] Property to be rendered as the class for this particular tag
  * @param {boolean=} [displayInput=true] Flag indicating that there will be an input box for new tags
+ * @param {string=} [popoverSymbol=null] The symbol to be displayed inside of the popover button
+ * @param {boolean=} [tooltip=false] Flag indicating whether to show the a tooltip on mouse over
+ * @param {string=} [tooltipProperty=null] The property of the tag object to display inside of the tooltip
  */
 tagsInput.directive('tagsInput', ["$timeout","$document","tagsInputConfig","$log", function($timeout, $document, tagsInputConfig, $log) {
     function TagList(options, events) {
-        var self = {}, getTagText, setTagText, tagIsValid, hasTagClass, getTagClass;
+        var self = {}, getTagText, setTagText, tagIsValid, hasTagClass, getTagClass, getTagTooltip;
 
         getTagText = function(tag) {
             return safeToString(tag[options.displayProperty]);
@@ -137,6 +140,10 @@ tagsInput.directive('tagsInput', ["$timeout","$document","tagsInputConfig","$log
 
         setTagText = function(tag, text) {
             tag[options.displayProperty] = text;
+        };
+
+        getTagTooltip = function(tag) {
+            return safeToString(tag[options.tooltipProperty]);
         };
 
         tagIsValid = function(tag) {
@@ -253,7 +260,9 @@ tagsInput.directive('tagsInput', ["$timeout","$document","tagsInputConfig","$log
                 cssProperty: [String, null],
                 showInput: [Boolean, true],
                 popoverDisplay: [Boolean, false],
-                popoverSymbol: [String, String.fromCharCode(43)]
+                popoverSymbol: [String, String.fromCharCode(43)],
+                tooltip: [Boolean, false],
+                tooltipProperty: [String, null]
             });
 
             $scope.tagList = new TagList($scope.options, $scope.events);
@@ -876,7 +885,7 @@ tagsInput.provider('tagsInputConfig', function() {
 /* HTML templates */
 tagsInput.run(["$templateCache", function($templateCache) {
     $templateCache.put('ngTagsInput/tags-input.html',
-    "<div class=\"host\" tabindex=\"-1\" ti-transclude-append=\"\"><div class=\"tags\" ng-class=\"{focused: hasFocus}\"><ul class=\"tag-list\"><li class=\"tag-item\" ng-repeat=\"tag in tagList.items track by track(tag)\" ng-class=\"[ tag[options.cssProperty], tag == tagList.selected ? 'selected' : '']\"><div class=\"item-popover\" ng-show=\"options.popoverDisplay\" ng-bind=\"options.popoverSymbol\" ng-click=\"tagList.popoverClicked(tag)\"></div><span ng-bind=\"getDisplayText(tag)\"></span> <a class=\"remove-button\" ng-click=\"tagList.remove($index)\" ng-bind=\"options.removeTagSymbol\"></a></li></ul><input class=\"input\" ng-model=\"newTag.text\" ng-change=\"newTagChange()\" ng-trim=\"false\" ng-class=\"{'invalid-tag': newTag.invalid}\" ti-bind-attrs=\"{type: options.type, placeholder: options.placeholder, tabindex: options.tabindex}\" ti-autosize=\"\" ng-show=\"options.showInput\"></div></div>"
+    "<div class=\"host\" tabindex=\"-1\" ti-transclude-append=\"\"><div class=\"tags\" ng-class=\"{focused: hasFocus}\"><ul class=\"tag-list\"><li class=\"tag-item\" ng-repeat=\"tag in tagList.items track by track(tag)\" ng-class=\"[ tag[options.cssProperty], tag == tagList.selected ? 'selected' : '', options.tooltipProperty ? 'has-tip' : '']\" tooltip=\"getTagTooltip(tag)\"><div class=\"item-popover\" ng-show=\"options.popoverDisplay\" ng-bind=\"options.popoverSymbol\" ng-click=\"tagList.popoverClicked(tag)\"></div><span ng-bind=\"getDisplayText(tag)\"></span> <a class=\"remove-button\" ng-click=\"tagList.remove($index)\" ng-bind=\"options.removeTagSymbol\"></a></li></ul><input class=\"input\" ng-model=\"newTag.text\" ng-change=\"newTagChange()\" ng-trim=\"false\" ng-class=\"{'invalid-tag': newTag.invalid}\" ti-bind-attrs=\"{type: options.type, placeholder: options.placeholder, tabindex: options.tabindex}\" ti-autosize=\"\" ng-show=\"options.showInput\"></div></div>"
   );
 
   $templateCache.put('ngTagsInput/auto-complete.html',

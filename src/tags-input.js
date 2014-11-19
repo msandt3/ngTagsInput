@@ -36,10 +36,13 @@
  * @param {expression} onTagRemoved Expression to evaluate upon removing an existing tag. The removed tag is available as $tag.
  * @param {string=} [cssProperty=null] Property to be rendered as the class for this particular tag
  * @param {boolean=} [displayInput=true] Flag indicating that there will be an input box for new tags
+ * @param {string=} [popoverSymbol=null] The symbol to be displayed inside of the popover button
+ * @param {boolean=} [tooltip=false] Flag indicating whether to show the a tooltip on mouse over
+ * @param {string=} [tooltipProperty=null] The property of the tag object to display inside of the tooltip
  */
 tagsInput.directive('tagsInput', function($timeout, $document, tagsInputConfig, $log) {
     function TagList(options, events) {
-        var self = {}, getTagText, setTagText, tagIsValid, hasTagClass, getTagClass;
+        var self = {}, getTagText, setTagText, tagIsValid, hasTagClass, getTagClass, getTagTooltip;
 
         getTagText = function(tag) {
             return safeToString(tag[options.displayProperty]);
@@ -47,6 +50,10 @@ tagsInput.directive('tagsInput', function($timeout, $document, tagsInputConfig, 
 
         setTagText = function(tag, text) {
             tag[options.displayProperty] = text;
+        };
+
+        getTagTooltip = function(tag) {
+            return safeToString(tag[options.tooltipProperty]);
         };
 
         tagIsValid = function(tag) {
@@ -163,7 +170,9 @@ tagsInput.directive('tagsInput', function($timeout, $document, tagsInputConfig, 
                 cssProperty: [String, null],
                 showInput: [Boolean, true],
                 popoverDisplay: [Boolean, false],
-                popoverSymbol: [String, String.fromCharCode(43)]
+                popoverSymbol: [String, String.fromCharCode(43)],
+                tooltip: [Boolean, false],
+                tooltipProperty: [String, null]
             });
 
             $scope.tagList = new TagList($scope.options, $scope.events);

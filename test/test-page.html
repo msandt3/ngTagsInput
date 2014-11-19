@@ -45,11 +45,15 @@
     .tag-item.one {
       background-color: purple !important;
     }
+
+    .has-tip {
+      background: #f00 !important;
+    }
   </style>
 </head>
 <body ng-controller="Ctrl">
     <p></p>
-    <tags-input ng-model="tags" css-property="class" popover="true" popover-clicked="plusClicked($tag)" on-tag-added="plusClicked($tag)">
+    <tags-input ng-model="tags" tooltip="true" tooltip-property="text" css-property="class" popover="true" popover-clicked="plusClicked($tag)" on-tag-added="plusClicked($tag)">
     </tags-input>
     <p></p>
     <div class="input-group" style="width: 600px">
