@@ -121,11 +121,7 @@ tagsInput.directive('tagsInput', function($timeout, $document, tagsInputConfig, 
         self.popoverClicked = function(tag) {
             events.trigger('popover-clicked', { $tag: tag });
         };
-
-        self.getTagTooltip = function(tag) {
-            return safeToString(tag[options.tooltipProperty]);
-        };
-
+        
         return self;
     }
 
@@ -260,6 +256,10 @@ tagsInput.directive('tagsInput', function($timeout, $document, tagsInputConfig, 
 
             scope.getDisplayText = function(tag) {
                 return safeToString(tag[options.displayProperty]);
+            };
+
+            scope.getTagTooltip = function(tag) {
+                return safeToString(tag[options.tooltipProperty]);
             };
 
             scope.track = function(tag) {
