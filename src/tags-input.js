@@ -42,7 +42,7 @@
  */
 tagsInput.directive('tagsInput', function($timeout, $document, tagsInputConfig, $log) {
     function TagList(options, events) {
-        var self = {}, getTagText, setTagText, tagIsValid, hasTagClass, getTagClass, getTagTooltip;
+        var self = {}, getTagText, setTagText, tagIsValid, hasTagClass, getTagClass;
 
         getTagText = function(tag) {
             return safeToString(tag[options.displayProperty]);
@@ -50,10 +50,6 @@ tagsInput.directive('tagsInput', function($timeout, $document, tagsInputConfig, 
 
         setTagText = function(tag, text) {
             tag[options.displayProperty] = text;
-        };
-
-        getTagTooltip = function(tag) {
-            return safeToString(tag[options.tooltipProperty]);
         };
 
         tagIsValid = function(tag) {
@@ -124,6 +120,10 @@ tagsInput.directive('tagsInput', function($timeout, $document, tagsInputConfig, 
 
         self.popoverClicked = function(tag) {
             events.trigger('popover-clicked', { $tag: tag });
+        };
+
+        self.getTagTooltip = function(tag) {
+            return safeToString(tag[options.tooltipProperty]);
         };
 
         return self;
