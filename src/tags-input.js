@@ -171,7 +171,7 @@ tagsInput.directive('tagsInput', function($timeout, $document, tagsInputConfig, 
                 showInput: [Boolean, true],
                 popoverDisplay: [Boolean, false],
                 popoverSymbol: [String, String.fromCharCode(43)],
-                tooltip: [Boolean, false],
+                hasTooltip: [Boolean, false],
                 tooltipProperty: [String, null]
             });
 
