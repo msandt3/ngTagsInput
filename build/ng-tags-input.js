@@ -5,7 +5,7 @@
  * Copyright (c) 2013-2014 Michael Benford
  * License: MIT
  *
- * Generated at 2014-11-19 16:16:30 -0500
+ * Generated at 2014-11-30 13:37:15 -0500
  */
 (function() {
 'use strict';
@@ -885,7 +885,7 @@ tagsInput.provider('tagsInputConfig', function() {
 /* HTML templates */
 tagsInput.run(["$templateCache", function($templateCache) {
     $templateCache.put('ngTagsInput/tags-input.html',
-    "<div class=\"host\" tabindex=\"-1\" ti-transclude-append=\"\"><div class=\"tags\" ng-class=\"{focused: hasFocus}\"><ul class=\"tag-list\"><li class=\"tag-item\" ng-repeat=\"tag in tagList.items track by track(tag)\" ng-class=\"[ tag[options.cssProperty], tag == tagList.selected ? 'selected' : '', options.hasTooltip ? 'has-tip' : '']\" tooltip=\"{{getTagTooltip(tag)}}\"><div class=\"item-popover\" ng-show=\"options.popoverDisplay\" ng-bind=\"options.popoverSymbol\" ng-click=\"tagList.popoverClicked(tag)\"></div><span ng-bind=\"getDisplayText(tag)\"></span> <a class=\"remove-button\" ng-click=\"tagList.remove($index)\" ng-bind=\"options.removeTagSymbol\"></a></li></ul><input class=\"input\" ng-model=\"newTag.text\" ng-change=\"newTagChange()\" ng-trim=\"false\" ng-class=\"{'invalid-tag': newTag.invalid}\" ti-bind-attrs=\"{type: options.type, placeholder: options.placeholder, tabindex: options.tabindex}\" ti-autosize=\"\" ng-show=\"options.showInput\"></div></div>"
+    "<div class=\"host\" tabindex=\"-1\" ti-transclude-append=\"\"><div class=\"tags\" ng-class=\"{focused: hasFocus}\"><ul class=\"tag-list\"><li class=\"tag-item\" ng-repeat=\"tag in tagList.items track by track(tag)\" ng-class=\"[ tag[options.cssProperty], tag == tagList.selected ? 'selected' : '', options.hasTooltip ? 'has-tip' : '']\" tooltip=\"{{getTagTooltip(tag)}}\"><div class=\"item-popover\" ng-show=\"options.popoverDisplay\" ng-bind=\"options.popoverSymbol\" ng-click=\"tagList.popoverClicked(tag)\"></div><span ng-bind=\"getDisplayText(tag) | limitTo:30\"></span> <a class=\"remove-button\" ng-click=\"tagList.remove($index)\" ng-bind=\"options.removeTagSymbol\"></a></li></ul><input class=\"input\" ng-model=\"newTag.text\" ng-change=\"newTagChange()\" ng-trim=\"false\" ng-class=\"{'invalid-tag': newTag.invalid}\" ti-bind-attrs=\"{type: options.type, placeholder: options.placeholder, tabindex: options.tabindex}\" ti-autosize=\"\" ng-show=\"options.showInput\"></div></div>"
   );
 
   $templateCache.put('ngTagsInput/auto-complete.html',
