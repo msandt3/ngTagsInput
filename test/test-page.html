@@ -58,7 +58,7 @@
     <p></p>
     <div class="input-group" style="width: 600px">
         <span class="input-group-addon">@</span>
-        <tags-input ng-model="tags">
+        <tags-input ng-model="tags" has-tooltip="true" tooltip-property="text">
             <auto-complete source="loadItems($query)" load-on-down-arrow="true"></auto-complete>
         </tags-input>
         <span class="input-group-addon">.00</span>
