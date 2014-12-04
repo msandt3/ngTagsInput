@@ -27,6 +27,7 @@ tags-input .tags {
   border: 1px solid darkgray;
   box-shadow: 1px 1px 1px 0 lightgray inset;
   height: 100%;
+  min-height: 2rem;
 }
 tags-input .tags.focused {
   outline: none;
